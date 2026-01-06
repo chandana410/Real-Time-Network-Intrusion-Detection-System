@@ -260,9 +260,9 @@ class IntrusionDetector:
             if flags & 0x3F == 0:  # No flags set (NULL scan)
                 suspicious = True
                 reason.append("NULL scan (no TCP flags)")
-            elif flags & 0x3F == 0x3F:  # All flags set (XMAS scan)
+            elif (flags & 0x29) == 0x29:  # FIN + PSH + URG (XMAS scan)
                 suspicious = True
-                reason.append("XMAS scan (all TCP flags set)")
+                reason.append("XMAS scan (FIN+PSH+URG flags set)")
             elif (flags & 0x02) and (flags & 0x01):  # SYN + FIN
                 suspicious = True
                 reason.append("Invalid TCP flags (SYN+FIN)")
@@ -319,8 +319,8 @@ class IntrusionDetector:
         
         time_diff = (datetime.now() - tracker["first_seen"]).total_seconds()
         
-        if time_diff > 0 and tracker["count"] >= threshold and time_diff <= time_window:
-            packets_per_sec = tracker["count"] / time_diff
+        if tracker["count"] >= threshold and time_diff <= time_window:
+            packets_per_sec = tracker["count"] / time_diff if time_diff > 0 else 0
             
             # DoS attack detected
             with self.lock:

@@ -101,8 +101,8 @@ class AttackSimulator:
             send(packet, verbose=False)
             time.sleep(0.5)
             
-            # XMAS scan (all flags)
-            packet = IP(dst=target_ip) / TCP(dport=80, flags="FSRPAUEC")
+            # XMAS scan (FIN + PSH + URG)
+            packet = IP(dst=target_ip) / TCP(dport=80, flags="FPU")
             send(packet, verbose=False)
             time.sleep(0.5)
             
