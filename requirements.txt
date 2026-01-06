@@ -1,0 +1,21 @@
+# Real-Time Network Intrusion Detection System Requirements
+# Python 3.7+
+
+# Core dependencies
+socket  # Built-in
+struct  # Built-in
+logging  # Built-in
+sqlite3  # Built-in
+time  # Built-in
+datetime  # Built-in
+threading  # Built-in
+
+# Optional but recommended
+scapy>=2.4.5  # Advanced packet manipulation
+pynpcap>=1.1  # Network packet capture
+pandas>=1.1.0  # Data analysis and alerts
+matplotlib>=3.3.0  # Visualization
+
+# Testing
+pytest>=6.0.0
+pytest-cov>=2.10.0
